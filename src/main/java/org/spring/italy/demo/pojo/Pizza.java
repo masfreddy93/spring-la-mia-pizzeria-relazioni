@@ -6,7 +6,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
@@ -19,6 +21,11 @@ public class Pizza{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Promozione promo;
+	
 	
 	@Column(name="name", nullable=false, unique = true)
 	@NotEmpty(message="name cannot be null")
@@ -35,8 +42,9 @@ public class Pizza{
 	
 	public Pizza() {}
 	
-	public Pizza(String name, String description, int price) {
+	public Pizza(Promozione promo, String name, String description, int price) {
 		
+		setPromo(promo);
 		setName(name);
 		setDescription(description);
 		setPrice(price);
@@ -51,7 +59,14 @@ public class Pizza{
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public Promozione getPromo() {
+		return promo;
+	}
 
+	public void setPromo(Promozione promo) {
+		this.promo = promo;
+	}
 
 	public String getName() {
 		return name;
