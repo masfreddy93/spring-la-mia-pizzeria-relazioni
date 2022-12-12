@@ -2,6 +2,7 @@ package org.spring.italy.demo;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.spring.italy.demo.pojo.Drink;
 import org.spring.italy.demo.pojo.Pizza;
@@ -24,7 +25,7 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 	private DrinkService drinkService;
 	
 	@Autowired
-	private PromozioneServ promoServ;
+	private PromozioneServ promoService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringLaMiaPizzeriaCrudApplication.class, args);
@@ -39,12 +40,12 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 		Promozione pr2 = new Promozione(LocalDate.of(2022, 01, 01), LocalDate.of(2022, 12, 31), "Sconto 2022");
 		Promozione pr3 = new Promozione(LocalDate.of(2022, 05, 29), LocalDate.of(2022, 10, 25), "Sconto 20%");
 		
-		promoServ.save(pr1);
-		promoServ.save(pr2);
-		promoServ.save(pr3);
+		promoService.save(pr1);
+		promoService.save(pr2);
+		promoService.save(pr3);
 		
 		//lettura
-		List<Promozione> promotions = promoServ.findAll();
+		List<Promozione> promotions = promoService.findAll();
 		System.out.println(promotions);
 		
 		
@@ -53,10 +54,12 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 		Pizza p1 = new Pizza(pr1, "Margherita", "La classica delle pizze", 4);
 		Pizza p2 = new Pizza(pr1, "Capricciosa", "Deliziosa come sempre", 7);
 		Pizza p3 = new Pizza(pr2, "Tonno e cipolla", "Attento all'alito", 6);
+		Pizza p4 = new Pizza(null, "Salamino", "Piccantissima", 6);
 		
 		pizzaService.save(p1);
 		pizzaService.save(p2);
 		pizzaService.save(p3);
+		pizzaService.save(p4);
 		
 		
 		//lettura
@@ -79,7 +82,29 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 		List<Drink> drinks = drinkService.findAll();
 		System.out.println(drinks);
 		
-			
 		
+		//test relazione pizza-promo
+		Pizza pizzaToDelete = pizzaService.findPizzaById(2).get();
+		pizzaService.delete(pizzaToDelete);
+		
+		List<Pizza> pizzas = pizzaService.findAll();
+		for(Pizza pizza : pizzas) {
+			
+			System.err.println(pizza + "\n\t" + pizza.getPromo());
+		}
+		
+		
+//		promoService.delete(pr1);
+		
+		List<Promozione> promos = promoService.findAllWPizza();
+		for(Promozione promo : promos) {
+			
+			System.err.println(promo);
+			
+			for(Pizza pizza : promo.getListOfPizzas()) {
+				
+				System.err.println("\t" + pizza);
+			}
+		}		
 	}
 }

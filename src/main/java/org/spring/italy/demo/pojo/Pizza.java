@@ -23,7 +23,7 @@ public class Pizza{
 	private int id;
 	
 	@ManyToOne
-	@JoinColumn(nullable = false)
+	@JoinColumn(nullable = true)
 	private Promozione promo;
 	
 	
@@ -45,6 +45,12 @@ public class Pizza{
 	public Pizza(Promozione promo, String name, String description, int price) {
 		
 		setPromo(promo);
+		setName(name);
+		setDescription(description);
+		setPrice(price);
+	}
+	public Pizza(String name, String description, int price) {
+		
 		setName(name);
 		setDescription(description);
 		setPrice(price);

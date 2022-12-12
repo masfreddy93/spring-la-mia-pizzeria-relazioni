@@ -37,11 +37,11 @@ public class PromozioneServ {
 		
 		List<Promozione> promotions = promozioneRepo.findAll();
 		
-			for(Promozione promo : promotions) {
-				
-				Hibernate.initialize(promo.getListOfPizzas());
-			}
+		for(Promozione promo : promotions) {
 			
-			return promotions;
+			Hibernate.initialize(promo.getListOfPizzas());
+		}
+		
+		return promotions;
 	}
 }

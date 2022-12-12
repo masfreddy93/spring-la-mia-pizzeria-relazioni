@@ -3,6 +3,7 @@ package org.spring.italy.demo.pojo;
 import java.time.LocalDate;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ public class Promozione {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@OneToMany(mappedBy = "promo")
+	@OneToMany(mappedBy = "promo", cascade = CascadeType.REMOVE)
 	private List<Pizza> listOfPizzas;
 	
 	@NotNull(message = "La data non può essere nulla")
