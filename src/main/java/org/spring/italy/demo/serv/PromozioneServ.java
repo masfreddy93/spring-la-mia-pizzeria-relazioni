@@ -27,6 +27,11 @@ public class PromozioneServ {
 		promozioneRepo.delete(promo);
 	}
 	
+	public Promozione findById(int id) {
+		
+		return promozioneRepo.findById(id).get();
+	}
+	
 	public List<Promozione> findAll(){
 		
 		return promozioneRepo.findAll();

@@ -93,8 +93,8 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 			System.err.println(pizza + "\n\t" + pizza.getPromo());
 		}
 		
-		
-//		promoService.delete(pr1);
+		Promozione promoToDelete = promoService.findById(1);
+		promoService.delete(promoToDelete);
 		
 		List<Promozione> promos = promoService.findAllWPizza();
 		for(Promozione promo : promos) {
