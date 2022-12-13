@@ -19,6 +19,9 @@
 		    <tr>
 		      <th scope="col">ID</th>
 		      <th scope="col">Name</th>
+		      <th scope="col">Data Inizio</th>
+		      <th scope="col">Data Fine</th>
+		      <th scope="col">Pizze</th>
 		   <!--    <th scope="col"></th>
 		      <th scope="col"></th>  -->
 		    </tr>
@@ -36,6 +39,9 @@
 					[[*{titolo}]]
 		      	<!--  </a>  -->
 		      </td>
+		      <td> [[*{dataInizio}]]</td>
+		      <td> [[*{dataFine}]] </td>
+		      <td> [[*{listOfPizzas}]] </td>
 		   <!--    <td><a th:href="@{/pizze/update/{id} (id=*{id})}" class="btn btn-warning">Update</a></td>
 		      <td><a th:href="@{/pizze/delete/{id} (id=*{id})}" class="btn btn-danger">    Delete</a></td>   -->
 		    </tr>

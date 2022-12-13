@@ -24,10 +24,10 @@ public class Promozione {
 	@OneToMany(mappedBy = "promo", cascade = CascadeType.REMOVE)
 	private List<Pizza> listOfPizzas;
 	
-//	@NotNull(message = "La data di inizio non può essere nulla")
+	@NotNull(message = "La data di inizio non può essere nulla")
 	private LocalDate dataInzio;
 	
-//	@NotNull(message = "La data di inizio non può essere nulla")
+	@NotNull(message = "La data di inizio non può essere nulla")
 	private LocalDate dataFine;
 	
 	@NotNull(message = "Il titolo non può essere nullo")
@@ -38,7 +38,7 @@ public class Promozione {
 	
 	public Promozione(LocalDate dataInizio, LocalDate dataFine, String titolo) {
 		
-		setDataInzio(dataInizio);
+		setDataInizio(dataInizio);
 		setDataFine(dataFine);
 		setTitolo(titolo);		
 	}
@@ -60,11 +60,11 @@ public class Promozione {
 		this.listOfPizzas = listOfPizzas;
 	}
 
-	public LocalDate getDataInzio() {
+	public LocalDate getDataInizio() {
 		return dataInzio;
 	}
 
-	public void setDataInzio(LocalDate dataInzio) {
+	public void setDataInizio(LocalDate dataInzio) {
 		this.dataInzio = dataInzio;
 	}
 

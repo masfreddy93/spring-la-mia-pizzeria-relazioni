@@ -26,11 +26,16 @@
 		    <input type="text" class="form-control"  aria-describedby="emailHelp" name="titolo" th:field="*{titolo}">
 		    <div  class="form-text">Insert the title of the promo</div>
 		  </div>
-	<!-- 	  <div class="mb-3">
+		  <div class="mb-3">
 		    <label for="exampleInputEmail1" class="form-label">Data Inizio</label>
-		    <input type="date" class="form-control"  >
+		    <input type="date" class="form-control" name="dataInizio" th:field="*{dataInizio}" >
 		    <div  class="form-text">Insert data di inizio</div>
-		  </div>   -->
+		  </div>   
+		  <div class="mb-3">
+		    <label for="exampleInputEmail1" class="form-label">Data Fine</label>
+		    <input type="date" class="form-control" name="dataFine" th:field="*{dataFine}" >
+		    <div  class="form-text">Insert data di fine</div>
+		  </div>  
 		  
 		  <div class="mb-3">
 			  <div th:each="pizza : ${pizze}" th:object="${pizza}">
