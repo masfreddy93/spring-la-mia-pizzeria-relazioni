@@ -24,10 +24,10 @@ public class Promozione {
 	@OneToMany(mappedBy = "promo", cascade = CascadeType.REMOVE)
 	private List<Pizza> listOfPizzas;
 	
-	@NotNull(message = "La data non può essere nulla")
+//	@NotNull(message = "La data di inizio non può essere nulla")
 	private LocalDate dataInzio;
 	
-	@NotNull(message = "La data non può essere nulla")
+//	@NotNull(message = "La data di inizio non può essere nulla")
 	private LocalDate dataFine;
 	
 	@NotNull(message = "Il titolo non può essere nullo")

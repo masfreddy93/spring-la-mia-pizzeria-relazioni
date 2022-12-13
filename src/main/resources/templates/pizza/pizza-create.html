@@ -34,6 +34,18 @@
 		    <label for="exampleInputPassword1" class="form-label">Price</label>
 		    <input type="number" class="form-control" id="exampleCheck1" name="price" th:field="*{price}">
 		  </div>
+		  <select name="promo">
+		  	<option th:value="NULL">NO PROMO</option>
+			<option
+				th:each="promo : ${promos}"
+				th:object="${promo}"
+				
+				th:value="*{id}"
+				th:field="${pizza.promo}"
+			>
+				[[*{titolo}]]
+			</option>
+		</select>
 		  
 		  <input type="submit" class="btn btn-primary" value="Create">
 		  
