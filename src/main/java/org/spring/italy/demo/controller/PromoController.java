@@ -31,6 +31,7 @@ public class PromoController {
 		List<Promozione> promos = promoServ.findAll();
 		model.addAttribute("promos", promos);
 		
+		
 		return "promo/index";
 	}
 	

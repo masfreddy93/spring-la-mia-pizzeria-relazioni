@@ -4,9 +4,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.spring.italy.demo.pojo.Drink;
+import org.spring.italy.demo.pojo.Ingrediente;
 import org.spring.italy.demo.pojo.Pizza;
 import org.spring.italy.demo.pojo.Promozione;
 import org.spring.italy.demo.serv.DrinkService;
+import org.spring.italy.demo.serv.IngredienteService;
 import org.spring.italy.demo.serv.PizzaService;
 import org.spring.italy.demo.serv.PromozioneServ;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +21,13 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 
 	@Autowired
 	private PizzaService pizzaService;
-	
 	@Autowired
 	private DrinkService drinkService;
-	
 	@Autowired
 	private PromozioneServ promoService;
+	@Autowired
+	private IngredienteService ingredienteService;
+	
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringLaMiaPizzeriaCrudApplication.class, args);
@@ -104,6 +107,23 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 				
 				System.err.println("\t" + pizza);
 			}
-		}		
+		}
+		
+		
+		//INGREDIENTE
+		//inserimento
+		Ingrediente i1 = new Ingrediente("tonno");
+		Ingrediente i2 = new Ingrediente("cipolla");
+		Ingrediente i3 = new Ingrediente("mozzarella");
+		Ingrediente i4 = new Ingrediente("olive");
+		
+		ingredienteService.save(i1);
+		ingredienteService.save(i2);
+		ingredienteService.save(i3);
+		ingredienteService.save(i4);
+		
+		//lettura
+		List<Ingrediente> listOfIngredients = ingredienteService.findAll();
+		System.out.println(listOfIngredients);
 	}
 }

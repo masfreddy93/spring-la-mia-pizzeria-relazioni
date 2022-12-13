@@ -22,8 +22,6 @@
 		      <th scope="col">Data Inizio</th>
 		      <th scope="col">Data Fine</th>
 		      <th scope="col">Pizze</th>
-		   <!--    <th scope="col"></th>
-		      <th scope="col"></th>  -->
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -33,17 +31,22 @@
 		  	>
 		      <th scope="row">[[*{id}]]</th>
 		      <td>
-		      	<!--   <a
-		      		th:href="@{/pizza/{id} (id=*{id})}"
-		      	>  -->
+
 					[[*{titolo}]]
-		      	<!--  </a>  -->
 		      </td>
 		      <td> [[*{dataInizio}]]</td>
 		      <td> [[*{dataFine}]] </td>
-		      <td> [[*{listOfPizzas}]] </td>
-		   <!--    <td><a th:href="@{/pizze/update/{id} (id=*{id})}" class="btn btn-warning">Update</a></td>
-		      <td><a th:href="@{/pizze/delete/{id} (id=*{id})}" class="btn btn-danger">    Delete</a></td>   -->
+		<!--        <td> [[*{listOfPizzas}]] </td>   -->
+		      <td> 
+		      	<div 
+		      		th:each="pizza : *{listOfPizzas}"
+		      		th:object="${pizza}"
+		      	>
+		      		[[*{name}]]
+		      	</div>
+		      	
+		      </td>    
+
 		    </tr>
 		  </tbody>
 		</table>
