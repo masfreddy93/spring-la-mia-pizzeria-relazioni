@@ -1,6 +1,7 @@
 package org.spring.italy.demo;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import org.spring.italy.demo.pojo.Drink;
@@ -125,5 +126,28 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 		//lettura
 		List<Ingrediente> listOfIngredients = ingredienteService.findAll();
 		System.out.println(listOfIngredients);
+		
+		
+		//TEST RELAZIONE M2M (many-to-many)
+		//prima dalla pizza (è la parte "forte", si crea senza problemi la relazione
+		List<Ingrediente> ingredientsForTonnOlive = Arrays.asList(new Ingrediente[] {
+			i1,
+			i2,
+			i4
+		});
+		
+		Pizza p5 = new Pizza(pr3, "TonnOlive", "Lasciati avvolgere dalle olive della cornovalia", 8, ingredientsForTonnOlive);
+		pizzaService.save(p5);
+		System.out.println(p5);
+		System.out.println(p5.getIngredients());   //ok
+		
+		
+		//ora partiamo da ingredienti (è la parte debole della relaz xk ha il mappedBy
+		
+		//questa relazione non verrà valorizzata nel DB
+		Ingrediente i5 = new Ingrediente("pomodoro", pizzas);
+		ingredienteService.save(i5); //non visualizzo relazione su tabella ponte
+		System.out.println(i5);
+		System.out.println(i5.getPizzas());  //visualizzo le pizze col pomodoro (i5) dalla console ma NON SU DATABASE!!
 	}
 }
