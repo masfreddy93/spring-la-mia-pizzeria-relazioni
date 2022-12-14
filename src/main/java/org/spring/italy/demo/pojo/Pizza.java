@@ -1,7 +1,6 @@
 package org.spring.italy.demo.pojo;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
