@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.PreRemove;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -24,7 +25,7 @@ public class Ingrediente {
 	@NotBlank(message = "Name cannot be blank")
 	private String name;
 	
-	@ManyToMany(mappedBy = "ingredients", cascade = CascadeType.REMOVE)
+	@ManyToMany(mappedBy = "ingredients")
 	private List<Pizza> pizzas;
 	
 	public Ingrediente() {}
@@ -57,6 +58,13 @@ public class Ingrediente {
 	}
 	public void setPizzas(List<Pizza> pizzas) {
 		this.pizzas = pizzas;
+	}
+	
+	@PreRemove
+	private void removeIngredientsFromPizzas() {
+	    for (Pizza p : getPizzas()) {
+	        p.getIngredients().remove(this);
+	    }
 	}
 	
 	

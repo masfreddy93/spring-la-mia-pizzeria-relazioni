@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jakarta.persistence.EntityManager;
 import jakarta.validation.Valid;
 
 @Controller
@@ -130,6 +131,7 @@ public class IngredienteController {
 		
 		try {
 			
+			//salvo ingrediente
 			ingredienteService.save(ingrediente);
 			
 		} catch (Exception e) {
@@ -155,20 +157,7 @@ public class IngredienteController {
 		try {
 			
 			Ingrediente ingrediente = ingredienteService.findById(id);
-			
-//			List<Pizza> pizzaToSave = ingrediente.getPizzas();
-				
 			ingredienteService.delete(ingrediente);
-			
-//			for(Pizza p : pizzaToSave) {
-//				
-//				List<Ingrediente> ings = p.getIngredients();
-//				p.setIngredients(ings);
-//				System.err.println(p);
-//				System.err.println(ings);
-//				pizzaService.save(p);
-//			}
-			
 			
 			
 		} catch (Exception e) {
