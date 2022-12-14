@@ -117,6 +117,18 @@ public class Pizza{
 	public void setIngredients(List<Ingrediente> ingredients) {
 		this.ingredients = ingredients;
 	}
+	
+	//metodo per evitare duplicati
+	public void addIngredients(Ingrediente ingrediente) {
+		
+		boolean finded = false;
+		for (Ingrediente i : getIngredients()) 
+			if (i.getId() == ingrediente.getId())
+				finded = true;
+		
+		if (!finded) 
+			getIngredients().add(ingrediente);
+	}
 
 	@Override
 	public String toString() {
@@ -126,5 +138,4 @@ public class Pizza{
 				+ "\n | " + getPromo()
 				+ "\n | ";
 	}
-	
 }

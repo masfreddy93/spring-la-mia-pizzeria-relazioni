@@ -1,7 +1,6 @@
 package org.spring.italy.demo.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.spring.italy.demo.pojo.Ingrediente;
 import org.spring.italy.demo.pojo.Pizza;
@@ -105,7 +104,7 @@ public class IngredienteController {
 		List<Pizza> pizze = ingrediente.getPizzas();
 		for(Pizza pizza : pizze) {
 			
-				pizza.getIngredients().add(ingrediente);
+				pizza.addIngredients(ingrediente);
 		}
 		
 		if(bindingResult.hasErrors()) {
