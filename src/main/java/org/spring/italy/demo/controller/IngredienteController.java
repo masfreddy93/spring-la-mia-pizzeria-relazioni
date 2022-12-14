@@ -112,8 +112,8 @@ public class IngredienteController {
 		//salvo dati nuovi (inseriti tramite form)
 		for(Pizza pizza : ingrediente.getPizzas()) {
 			
-			pizza.addIngredients(ingrediente);	
-//			pizza.getIngredients().add(ingrediente);
+//			pizza.addIngredients(ingrediente);	
+			pizza.getIngredients().add(ingrediente);
 		}
 		
 		

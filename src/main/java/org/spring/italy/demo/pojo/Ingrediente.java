@@ -60,12 +60,12 @@ public class Ingrediente {
 		this.pizzas = pizzas;
 	}
 	
-//	@PreUpdate    che si possa usare per semplificare le cose?
-//	private void updateIngredientsFromPizzas() {
-//	    for (Pizza p : getPizzas()) {
-//	        p.getIngredients().remove(this);
-//	    }
-//	}
+	@PreUpdate      //usato questo anziché metodo addIngredients in Pizza pojo
+	private void updateIngredientsFromPizzas() {
+	    for (Pizza p : getPizzas()) {
+	        p.getIngredients().remove(this);
+	    }
+	}
 	
 	@PreRemove
 	private void removeIngredientsFromPizzas() {
