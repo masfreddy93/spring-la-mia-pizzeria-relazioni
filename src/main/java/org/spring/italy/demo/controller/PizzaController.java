@@ -115,6 +115,10 @@ public class PizzaController {
 		
 		Optional<Pizza> optPizza = pizzaService.findPizzaById(id);
 		Pizza pizza = optPizza.get();
+		List<Promozione> promos = promoService.findAll();
+		model.addAttribute("promos", promos);
+		List<Ingrediente> ingredients = ingredienteService.findAll();
+		model.addAttribute("ingredients", ingredients);
 		
 		model.addAttribute("pizza", pizza);
 		

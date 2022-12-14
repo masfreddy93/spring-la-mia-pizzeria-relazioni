@@ -14,12 +14,16 @@
 	<main>
 		<h3><a class="btn btn-warning mb-3" href="/ingredients/create">Create ingrediente</a></h3>
 		
+		<div th:replace="frag :: errors"></div>
+		
 		<table class="table" th:if="${ingredients.size()} > 0">
 		  <thead>
 		    <tr>
 		      <th scope="col">ID</th>
 		      <th scope="col">Name</th>
 		      <th scope="col">Pizze</th>
+		      <th scope="col"></th>
+		      <th scope="col"></th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -27,6 +31,7 @@
 		    	th:each="ingrediente : ${ingredients}"
 		  		th:object="${ingrediente}"
 		  	>
+		  	
 		      <th scope="row">[[*{id}]]</th>
 		      <td>
 
@@ -39,8 +44,9 @@
 		      	>
 		      		[[*{name}]]
 		      	</div>
-		      	
-		      </td>    
+		      </td> 
+		      <td><a th:href="@{/ingredients/update/{id} (id=*{id})}" class="btn btn-warning">Update</a></td>
+		      <td><a th:href="@{/ingredients/delete/{id} (id=*{id})}" class="btn btn-danger">Delete</a></td>    
 
 		    </tr>
 		  </tbody>

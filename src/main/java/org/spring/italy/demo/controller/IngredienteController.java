@@ -1,6 +1,7 @@
 package org.spring.italy.demo.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.spring.italy.demo.pojo.Ingrediente;
 import org.spring.italy.demo.pojo.Pizza;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -83,4 +85,82 @@ public class IngredienteController {
 		
 		return "redirect:/ingredients";
 	}
+	
+	
+	@GetMapping("/update/{id}")
+	public String editIngrediente(@PathVariable("id") int id, Model model) {
+		
+		Ingrediente ingrediente = ingredienteService.findById(id);
+		model.addAttribute("ingrediente", ingrediente);
+		List<Pizza> pizze = pizzaService.findAll();
+		model.addAttribute("pizzas", pizze);
+		
+		return "ingrediente/ingrediente-update";
+	}
+	@PostMapping("/store")
+	public String updateIngrediente(@Valid Ingrediente ingrediente, 
+			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		
+		//errore da sistemare
+		List<Pizza> pizze = ingrediente.getPizzas();
+		for(Pizza pizza : pizze) {
+			
+				pizza.getIngredients().add(ingrediente);
+		}
+		
+		if(bindingResult.hasErrors()) {
+			
+			System.err.println("ERRORE");
+			System.err.println(bindingResult.getAllErrors());
+			System.err.println("------");
+			
+			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+			
+			
+			return "redirect:/ingredients/update/" + ingrediente.getId();
+		}
+		
+		try {
+			
+			ingredienteService.save(ingrediente);
+			
+		} catch (Exception e) {
+			
+			final String msg = e.getMessage();
+			
+			System.err.println(msg);
+			redirectAttributes.addFlashAttribute("catchError", msg);
+			
+			return "redirect:/ingredients/update/" + ingrediente.getId();
+		}
+		
+		
+		return "redirect:/ingredients";
+	}
+	
+	
+	
+	@GetMapping("/delete/{id}")
+	public String deleteIngrediente(@PathVariable("id") int id,
+			RedirectAttributes redirectAttributes) {
+		
+		try {
+			
+			Ingrediente ingrediente = ingredienteService.findById(id);
+			
+			ingredienteService.delete(ingrediente);
+			
+		} catch (Exception e) {
+			
+			final String msg = e.getMessage();
+			
+			System.err.println(msg);
+			redirectAttributes.addFlashAttribute("catchError", msg);
+		}
+		
+		
+		return "redirect:/ingredients";
+	}
+	
+	
 }

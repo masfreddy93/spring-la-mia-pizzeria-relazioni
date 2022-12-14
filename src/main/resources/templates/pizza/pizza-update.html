@@ -38,6 +38,28 @@
 			    <input type="number" class="form-control" id="exampleCheck1" name="price" th:field="*{price}">
 			  </div>
 			  
+			  <select name="promo" class="mb-3">
+			  	<option th:value="NULL">NO PROMO</option>
+				<option
+					th:each="promo : ${promos}"
+					th:object="${promo}"
+					
+					th:value="*{id}"
+					th:field="${pizza.promo}"
+				>
+					[[*{titolo}]]
+				</option>
+			  </select>
+			  
+			  <div class="mb-3">
+				  <div th:each="ingredient : ${ingredients}" th:object="${ingredient}">
+				    <input type="checkbox"  name="ingredients" th:value="*{id}" th:field="${pizza.ingredients}">
+				    <label>[[*{name}]]</label>	  
+				  </div>
+				  <div  class="form-text">Marcare ingredienti contenuti in questa pizza</div>	
+			  </div>
+		  
+			  
 			  <input type="submit" class="btn btn-primary" value="Update">
 			  
 		</form>
