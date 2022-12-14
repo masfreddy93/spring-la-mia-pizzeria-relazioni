@@ -22,6 +22,7 @@
 		      <th scope="col">Description</th>
 		      <th scope="col">Price</th>
 		      <th scope="col">Promo</th>
+		      <th scope="col">Ingredients</th>
 		      <th scope="col"></th>
 		      <th scope="col"></th>
 		    </tr>
@@ -42,6 +43,7 @@
 		      <td>[[*{description}]]</td>
 		      <td>[[*{price}]]</td>
 	          <td>[[*{promo}]]</td>  
+	          <td>[[*{ingredients}]]</td>  
 		      <td><a th:href="@{/pizze/update/{id} (id=*{id})}" class="btn btn-warning">Update</a></td>
 		      <td><a th:href="@{/pizze/delete/{id} (id=*{id})}" class="btn btn-danger">    Delete</a></td>  
 		    </tr>

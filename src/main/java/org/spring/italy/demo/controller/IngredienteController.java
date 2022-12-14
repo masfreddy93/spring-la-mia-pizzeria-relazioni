@@ -2,10 +2,10 @@ package org.spring.italy.demo.controller;
 
 import java.util.List;
 
+import org.spring.italy.demo.pojo.Ingrediente;
 import org.spring.italy.demo.pojo.Pizza;
-import org.spring.italy.demo.pojo.Promozione;
+import org.spring.italy.demo.serv.IngredienteService;
 import org.spring.italy.demo.serv.PizzaService;
-import org.spring.italy.demo.serv.PromozioneServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,47 +18,42 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/promo")
-public class PromoController {
+@RequestMapping("/ingredients")
+public class IngredienteController {
 
-	@Autowired
-	private PromozioneServ promoServ;
-	@Autowired
-	private PizzaService pizzaServ;
+	@Autowired IngredienteService ingredienteService;
+	@Autowired PizzaService pizzaService;
 	
 	@GetMapping
 	public String index(Model model) {
 		
-		List<Promozione> promos = promoServ.findAll();
-		model.addAttribute("promos", promos);
+		List<Ingrediente> listOfIngredients = ingredienteService.findAll();
+		model.addAttribute("ingredients", listOfIngredients);
 		
-		
-		return "promo/index";
+		return "ingrediente/index";
 	}
-	
 	
 	@GetMapping("/create")
-	public String createPromo(Model model) {
+	public String createIngrediente(Model model) {
 		
-		Promozione promo = new Promozione();		
-		model.addAttribute("promo", promo);
-		List<Pizza> pizze = pizzaServ.findAll();
-		model.addAttribute("pizze", pizze);
+		Ingrediente ingrediente = new Ingrediente();
+		model.addAttribute("ingrediente", ingrediente);
+		List<Pizza> pizze = pizzaService.findAll();
+		model.addAttribute("pizzas", pizze);
 		
-		return "promo/promo-create";
+		return "ingrediente/ingrediente-create";
 	}
 	
-	
 	@PostMapping("/create")
-	public String storePromo(@Valid Promozione promo, BindingResult bindingResult, 
-				RedirectAttributes redirectAttributes) {
-	
-		List<Pizza> listOfPizzas = promo.getListOfPizzas();
+	public String storeIngrediente(@Valid Ingrediente ingrediente,
+			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		
-		for(Pizza pizza : listOfPizzas) {
+		List<Pizza> pizze = ingrediente.getPizzas();
+		for(Pizza pizza : pizze) {
 			
-			pizza.setPromo(promo);
+			pizza.getIngredients().add(ingrediente);
 		}
+		
 		
 		if(bindingResult.hasErrors()) {
 			
@@ -69,12 +64,12 @@ public class PromoController {
 			redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
 			
 			
-			return "redirect:/promo/create";
+			return "redirect:/ingredients/create";
 		}
 		
 		try {
 			
-			promoServ.save(promo);
+			ingredienteService.save(ingrediente);
 			
 		} catch (Exception e) {
 			
@@ -83,11 +78,9 @@ public class PromoController {
 			System.err.println(msg);
 			redirectAttributes.addFlashAttribute("catchError", msg);
 			
-			return "redirect:/promo/create";
+			return "redirect:/ingredients/create";
 		}
 		
-				
-		
-		return "redirect:/promo";
+		return "redirect:/ingredients";
 	}
 }

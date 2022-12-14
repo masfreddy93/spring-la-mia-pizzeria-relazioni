@@ -34,7 +34,7 @@
 		    <label for="exampleInputPassword1" class="form-label">Price</label>
 		    <input type="number" class="form-control" id="exampleCheck1" name="price" th:field="*{price}">
 		  </div>
-		  <select name="promo">
+		  <select name="promo" class="mb-3">
 		  	<option th:value="NULL">NO PROMO</option>
 			<option
 				th:each="promo : ${promos}"
@@ -45,7 +45,19 @@
 			>
 				[[*{titolo}]]
 			</option>
-		</select>
+		  </select>
+		  
+		  <div class="mb-3">
+		  	  <label>INGREDIENTS:</label>
+			  <div th:each="ingrediente : ${ingredients}" th:object="${ingrediente}">
+			    <input type="checkbox"  name="ingredients" th:value="*{id}" th:field="${pizza.ingredients}">
+			    <label>[[*{name}]]</label>	  
+			  </div>
+			  <div  class="form-text">Marcare ingredienti contenuti in questa pizza</div>	
+		  </div>
+		
+		
+		
 		  
 		  <input type="submit" class="btn btn-primary" value="Create">
 		  

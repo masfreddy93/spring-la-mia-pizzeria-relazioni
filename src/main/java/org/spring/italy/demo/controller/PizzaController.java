@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.spring.italy.demo.pojo.Drink;
+import org.spring.italy.demo.pojo.Ingrediente;
 import org.spring.italy.demo.pojo.Pizza;
 import org.spring.italy.demo.pojo.Promozione;
 import org.spring.italy.demo.serv.DrinkService;
+import org.spring.italy.demo.serv.IngredienteService;
 import org.spring.italy.demo.serv.PizzaService;
 import org.spring.italy.demo.serv.PromozioneServ;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,8 @@ public class PizzaController {
 	private DrinkService drinkService;
 	@Autowired
 	private PromozioneServ promoService;
+	@Autowired
+	private IngredienteService ingredienteService;
 	
 	
 	@GetMapping
@@ -68,6 +72,8 @@ public class PizzaController {
 		model.addAttribute("pizza", pizza);
 		List<Promozione> promos = promoService.findAllWPizza();
 		model.addAttribute("promos", promos);
+		List<Ingrediente> ingredients = ingredienteService.findAll();
+		model.addAttribute("ingredients", ingredients);
 		
 		return "pizza/pizza-create";
 	}

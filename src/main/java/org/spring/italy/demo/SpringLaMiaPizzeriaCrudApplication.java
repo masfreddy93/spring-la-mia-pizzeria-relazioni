@@ -149,5 +149,7 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 		ingredienteService.save(i5); //non visualizzo relazione su tabella ponte
 		System.out.println(i5);
 		System.out.println(i5.getPizzas());  //visualizzo le pizze col pomodoro (i5) dalla console ma NON SU DATABASE!!
+		
+		
 	}
 }

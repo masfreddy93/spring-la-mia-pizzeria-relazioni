@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -31,6 +32,7 @@ public class Promozione {
 	private LocalDate dataFine;
 	
 	@NotNull(message = "Il titolo non può essere nullo")
+	@NotBlank(message = "Il titolo non può essere nullo")
 	@Column(unique = true)
 	private String titolo;
 
