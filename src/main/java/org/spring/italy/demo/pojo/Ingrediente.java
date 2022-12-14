@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.PreRemove;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -58,6 +59,13 @@ public class Ingrediente {
 	public void setPizzas(List<Pizza> pizzas) {
 		this.pizzas = pizzas;
 	}
+	
+//	@PreUpdate    che si possa usare per semplificare le cose?
+//	private void updateIngredientsFromPizzas() {
+//	    for (Pizza p : getPizzas()) {
+//	        p.getIngredients().remove(this);
+//	    }
+//	}
 	
 	@PreRemove
 	private void removeIngredientsFromPizzas() {

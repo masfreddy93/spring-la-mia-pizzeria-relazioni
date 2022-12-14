@@ -113,6 +113,7 @@ public class IngredienteController {
 		for(Pizza pizza : ingrediente.getPizzas()) {
 			
 			pizza.addIngredients(ingrediente);	
+//			pizza.getIngredients().add(ingrediente);
 		}
 		
 		
