@@ -2,6 +2,7 @@ package org.spring.italy.demo.pojo;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +24,7 @@ public class Ingrediente {
 	@NotBlank(message = "Name cannot be blank")
 	private String name;
 	
-	@ManyToMany(mappedBy = "ingredients")
+	@ManyToMany(mappedBy = "ingredients", cascade = CascadeType.REMOVE)
 	private List<Pizza> pizzas;
 	
 	public Ingrediente() {}

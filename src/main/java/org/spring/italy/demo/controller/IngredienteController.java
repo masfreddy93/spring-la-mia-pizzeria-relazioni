@@ -96,16 +96,25 @@ public class IngredienteController {
 		
 		return "ingrediente/ingrediente-update";
 	}
-	@PostMapping("/store")
-	public String updateIngrediente(@Valid Ingrediente ingrediente, 
+	@PostMapping("/store/{id}")
+	public String updateIngrediente(@PathVariable("id") int id, @Valid Ingrediente ingrediente, 
 			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		
-		//errore da sistemare
-		List<Pizza> pizze = ingrediente.getPizzas();
-		for(Pizza pizza : pizze) {
+		//recupero dati vecchi (quelli dal DB) tramite id dell'ingrediente
+		Ingrediente oldIngrediente = ingredienteService.findById(id);
+		
+		//elimino dati vecchi (quelli del DB)
+		for(Pizza pizza : oldIngrediente.getPizzas()) {
 			
-				pizza.addIngredients(ingrediente);
+			pizza.getIngredients().remove(oldIngrediente);
 		}
+		
+		//salvo dati nuovi (inseriti tramite form)
+		for(Pizza pizza : ingrediente.getPizzas()) {
+			
+			pizza.addIngredients(ingrediente);	
+		}
+		
 		
 		if(bindingResult.hasErrors()) {
 			
@@ -147,7 +156,20 @@ public class IngredienteController {
 			
 			Ingrediente ingrediente = ingredienteService.findById(id);
 			
+//			List<Pizza> pizzaToSave = ingrediente.getPizzas();
+				
 			ingredienteService.delete(ingrediente);
+			
+//			for(Pizza p : pizzaToSave) {
+//				
+//				List<Ingrediente> ings = p.getIngredients();
+//				p.setIngredients(ings);
+//				System.err.println(p);
+//				System.err.println(ings);
+//				pizzaService.save(p);
+//			}
+			
+			
 			
 		} catch (Exception e) {
 			

@@ -1,6 +1,7 @@
 package org.spring.italy.demo.pojo;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -118,7 +119,7 @@ public class Pizza{
 		this.ingredients = ingredients;
 	}
 	
-	//metodo per evitare duplicati
+	//metodo per evitare relazioni duplicate
 	public void addIngredients(Ingrediente ingrediente) {
 		
 		boolean finded = false;
@@ -129,6 +130,7 @@ public class Pizza{
 		if (!finded) 
 			getIngredients().add(ingrediente);
 	}
+	
 
 	@Override
 	public String toString() {
