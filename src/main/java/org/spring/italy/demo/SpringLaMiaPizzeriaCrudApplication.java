@@ -2,7 +2,9 @@ package org.spring.italy.demo;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.spring.italy.demo.pojo.Drink;
 import org.spring.italy.demo.pojo.Ingrediente;
@@ -12,6 +14,10 @@ import org.spring.italy.demo.serv.DrinkService;
 import org.spring.italy.demo.serv.IngredienteService;
 import org.spring.italy.demo.serv.PizzaService;
 import org.spring.italy.demo.serv.PromozioneServ;
+import org.spring.italy.demo.serv.RoleServ;
+import org.spring.italy.demo.serv.UserServ;
+import org.spring.italy.demo.pojo.Role;
+import org.spring.italy.demo.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,6 +34,8 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 	private PromozioneServ promoService;
 	@Autowired
 	private IngredienteService ingredienteService;
+	@Autowired private UserServ userServ;
+	@Autowired private RoleServ roleServ;
 	
 	
 	public static void main(String[] args) {
@@ -150,6 +158,37 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 		System.out.println(i5);
 		System.out.println(i5.getPizzas());  //visualizzo le pizze col pomodoro (i5) dalla console ma NON SU DATABASE!!
 		
+		
+		//----------------------
+		//AUTENTICAZIONE
+		Role user = new Role("USER");
+		Role admin = new Role("ADMIN");
+		
+		
+		roleServ.save(user);
+		roleServ.save(admin);
+		
+		List<Role> roles = roleServ.findAll();
+		System.err.println(roles);
+		
+		
+		System.err.println("-----------------------");
+		
+		
+		User u1 = new User("Mario", "{noop}pUser", user);
+		User u2 = new User("Luca", "{noop}pAdmin", admin);
+		
+//		Set<Role> adminAndUser = new HashSet<>();
+//		for(Role role : roleServ.findAll())
+//			adminAndUser.add(role);
+//		User u3 = new User("Anna", "{noop}pAdminUser", adminAndUser);
+		
+		userServ.save(u1);
+		userServ.save(u2);
+//		userServ.save(u3);
+		
+		List<User> users = userServ.findAll();
+		System.err.println(users);
 		
 	}
 }
