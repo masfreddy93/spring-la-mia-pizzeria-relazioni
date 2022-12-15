@@ -97,8 +97,10 @@ public class IngredienteController {
 		return "ingrediente/ingrediente-update";
 	}
 	@PostMapping("/store/{id}")
-	public String updateIngrediente(@PathVariable("id") int id, @Valid Ingrediente ingrediente, 
-			BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+	public String updateIngrediente(@PathVariable("id") int id, 
+			@Valid Ingrediente ingrediente, 
+			BindingResult bindingResult, 
+			RedirectAttributes redirectAttributes) {
 		
 		//recupero dati vecchi (quelli dal DB) tramite id dell'ingrediente
 		Ingrediente oldIngrediente = ingredienteService.findById(id);
@@ -112,8 +114,7 @@ public class IngredienteController {
 		//salvo dati nuovi (inseriti tramite form)
 		for(Pizza pizza : ingrediente.getPizzas()) {
 			
-//			pizza.addIngredients(ingrediente);	
-			pizza.getIngredients().add(ingrediente);
+			pizza.addIngredients(ingrediente);
 		}
 		
 		

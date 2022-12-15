@@ -60,18 +60,11 @@ public class Ingrediente {
 		this.pizzas = pizzas;
 	}
 	
-	@PreUpdate      //usato questo anziché metodo addIngredients in Pizza pojo
-	private void updateIngredientsFromPizzas() {
-	    for (Pizza p : getPizzas()) {
-	        p.getIngredients().remove(this);
-	    }
-	}
 	
 	@PreRemove
-	private void removeIngredientsFromPizzas() {
-	    for (Pizza p : getPizzas()) {
+	private void removeIngredientFromPizzas() {
+	    for (Pizza p : getPizzas())
 	        p.getIngredients().remove(this);
-	    }
 	}
 	
 	
